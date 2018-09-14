@@ -54,6 +54,7 @@ public class MicroStrategy {
 	private ObjectMapper mapper;
 	private String projectId;
 	private String datasetName;
+	private String folderId;
 	private String tableName;
 	private String datasetId;
 
@@ -80,7 +81,7 @@ public class MicroStrategy {
 		mstr.connect();
 
 		mstr.setProject("MicroStrategy Tutorial");
-		mstr.setTarget("Streaming", "topic");
+		mstr.setTarget("Streaming", "topic", "D3C7D461F69C4610AA6BAA5EF51F4125");
 		Collection<SinkRecord> records = null;
 		mstr.put(records);
 
@@ -154,9 +155,10 @@ public class MicroStrategy {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void setTarget(String datasetName, String tableName) throws MicroStrategyException {
+	public void setTarget(String datasetName, String tableName, String folderId) throws MicroStrategyException {
 		this.datasetName = datasetName;
 		this.tableName = tableName;
+		this.folderId = folderId;
 
 		try {
 			URIBuilder uriBuilder = new URIBuilder(baseUrl + "/searches/results");
@@ -199,6 +201,7 @@ public class MicroStrategy {
 				payload = new HashMap<String, Object>();
 				payload.put("name", datasetName);
 				payload.put("tables", Collections.singletonList(tableDefinition));
+				payload.put("folderId", this.folderId); // create dataset in Shared Reports
 			}
 			// System.out.println(request.getURI());
 			request.setEntity(new StringEntity(mapper.writeValueAsString(payload)));

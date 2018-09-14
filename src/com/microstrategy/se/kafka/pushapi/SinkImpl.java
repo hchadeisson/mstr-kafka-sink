@@ -126,7 +126,7 @@ public class SinkImpl extends SinkTask {
 						props.get(MicroStrategySink.CONFIG_USER), props.get(MicroStrategySink.CONFIG_PASSWORD));
 				mstr.connect();
 				mstr.setProject(props.get(MicroStrategySink.CONFIG_PROJECT));
-				mstr.setTarget(props.get(MicroStrategySink.CONFIG_CUBE), tableName);
+				mstr.setTarget(props.get(MicroStrategySink.CONFIG_CUBE), tableName, new String("D3C7D461F69C4610AA6BAA5EF51F4125"));
 				mstr.push(tableDefinition);
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();

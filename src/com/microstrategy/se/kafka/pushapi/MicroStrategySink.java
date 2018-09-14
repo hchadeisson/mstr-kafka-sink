@@ -28,6 +28,7 @@ public class MicroStrategySink extends SinkConnector {
 	static final String CONFIG_PASSWORD = "CONFIG_PASSWORD";
 	static final String CONFIG_PROJECT = "CONFIG_PROJECT";
 	static final String CONFIG_CUBE = "CONFIG_CUBE";
+	static final String CONFIG_FOLDER = "CONFIG_FOLDER";
 	private Map<String, String> props;
 
 	@Override
@@ -64,7 +65,7 @@ public class MicroStrategySink extends SinkConnector {
 				null,
 				new NonEmptyString(),
 				Importance.HIGH,
-				"User password.",
+				"Password.",
 				"MicroStrategy",
 				++groupOrder,
 				Width.SHORT,
@@ -80,6 +81,17 @@ public class MicroStrategySink extends SinkConnector {
 				++groupOrder,
 				Width.MEDIUM,
 				"Project name");
+//		config.define(
+//				CONFIG_FOLDER,
+//				Type.STRING,
+//				"D3C7D461F69C4610AA6BAA5EF51F4125",
+//				new NonEmptyString(),
+//				Importance.HIGH,
+//				"Folder ID",
+//				"MicroStrategy",
+//				++groupOrder,
+//				Width.MEDIUM,
+//				"Target folderId");
 		config.define(
 				CONFIG_CUBE,
 				Type.STRING,
