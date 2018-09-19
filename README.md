@@ -32,6 +32,8 @@ You should be good to go, just restart Kafka Connect and let's configure the Sin
 ## Configure the Sink
 2 options are available to configure the Sink. You can either create it using a REST API Call on Kafka Connect, or if you are using [Confluent.io](http://confluent.io/), use the [Control Center](https://www.confluent.io/confluent-control-center/) to create it from a user friendly web portal.
 
+Currently, all cubes go the the Shared Reports of the project. Custom folders support will probably be considered in a near future
+
 ### Using REST API Call
 Update bold parameters
 
