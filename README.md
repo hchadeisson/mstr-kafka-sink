@@ -45,3 +45,6 @@ Update bold parameters
 * In the next screen, select **MicroStrategySink** connector class and set the connector name, that will show up in the Kafka Connect list of Sinks
 * A new section appears, scroll all the way down to the MicroStrategy subsection
 * Fill all the fields with the required information listed in the prerequisites
+
+# Special thanks
+To Alex Fernandez, who implemented this first and passed along the knowledge so we could reuse it
