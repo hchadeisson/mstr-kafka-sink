@@ -76,4 +76,4 @@ First items in the list would be:
 * Handle MSTR Push API call back to a dedicated Kafka topic for real time scenarios
 
 # Special thanks
-To Alex Fernandez, who implemented this first and passed along the knowledge so we could reuse it
+To Alex Fernandes, who implemented this first and passed along the knowledge so we could reuse it
