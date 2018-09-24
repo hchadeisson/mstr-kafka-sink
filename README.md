@@ -67,5 +67,13 @@ Update bold parameters
 * A new section appears, scroll all the way down to the MicroStrategy subsection
 * Fill all the fields with the required information listed in the prerequisites
 
+# Caveats & Roadmap
+This is a very first implementation of such connector. We took a lot of shortcuts to make it work. Feel free to enhance it and share code updates as you use it.
+
+First items in the list would be:
+* Implement MicroStrategy connection pooling, in order to avoid authentication / logout for each Kafka Sink flush to MicroStrategy cube
+* Support Custom Folder target
+* Handle MSTR Push API call back to a dedicated Kafka topic for real time scenarios
+
 # Special thanks
 To Alex Fernandez, who implemented this first and passed along the knowledge so we could reuse it
