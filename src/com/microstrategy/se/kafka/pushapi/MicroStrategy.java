@@ -48,6 +48,7 @@ public class MicroStrategy {
 	private String baseUrl;
 	private String username;
 	private String password;
+	private CookieStore cookieStore;
 	private CloseableHttpClient httpClient;
 	private HttpClientContext httpContext;
 	private Collection<Header> headers;
@@ -100,13 +101,13 @@ public class MicroStrategy {
 
 		CookieStore cookieStore = new BasicCookieStore();
 		httpContext = HttpClientContext.create();
-		httpContext.setCookieStore(cookieStore);
+		httpContext.setCookieStore(this.cookieStore);
 		httpClient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
 
-		headers = new ArrayList<Header>();
-		headers.add(new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/json"));
-		headers.add(new BasicHeader(HttpHeaders.ACCEPT, "application/json"));
-
+		this.headers = new ArrayList<Header>();
+		this.headers.add(new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/json"));
+		this.headers.add(new BasicHeader(HttpHeaders.ACCEPT, "application/json"));
+		
 		mapper = new ObjectMapper();
 	}
 
@@ -117,21 +118,29 @@ public class MicroStrategy {
 		try {
 			HttpPost request = new HttpPost(baseUrl + "/auth/login");
 			request.setEntity(new StringEntity(mapper.writeValueAsString(payload)));
-			request.setHeaders(headers.toArray(new Header[headers.size()]));
+			request.setHeaders(this.headers.toArray(new Header[this.headers.size()]));
 			CloseableHttpResponse response = httpClient.execute(request, httpContext);
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_NO_CONTENT) {
-				headers.add(response.getFirstHeader("X-MSTR-AuthToken"));
+				this.headers.add(response.getFirstHeader("X-MSTR-AuthToken"));
 			} else {
 				throw new MicroStrategyException(response.getStatusLine().toString());
 			}
 		} catch (Exception e) {
 			throw new MicroStrategyException(e);
-		}
+		}			
+	}
+	
+	public CookieStore getCookieStore() {
+		return this.cookieStore;
+	}
+	
+	public Collection<Header> getHeaders () {
+		return this.headers;
 	}
 
 	public void setProject(String projectName) throws MicroStrategyException {
 		HttpGet request = new HttpGet(baseUrl + "/projects");
-		request.setHeaders(headers.toArray(new Header[headers.size()]));
+		request.setHeaders(this.headers.toArray(new Header[this.headers.size()]));
 		try {
 			CloseableHttpResponse response = httpClient.execute(request, httpContext);
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
@@ -141,7 +150,7 @@ public class MicroStrategy {
 				for (Map<String, Object> project : json) {
 					if (projectName.equals(project.get("name"))) {
 						projectId = (String) project.get("id");
-						headers.add(new BasicHeader("X-MSTR-ProjectID", projectId));
+						this.headers.add(new BasicHeader("X-MSTR-ProjectID", projectId));
 						return;
 					}
 				}
@@ -168,7 +177,7 @@ public class MicroStrategy {
 			uriBuilder.addParameter("pattern", "2"); // SEARCH_TYPE_EXACTLY
 
 			HttpGet request = new HttpGet(uriBuilder.build());
-			request.setHeaders(headers.toArray(new Header[headers.size()]));
+			request.setHeaders(this.headers.toArray(new Header[this.headers.size()]));
 			CloseableHttpResponse response = httpClient.execute(request, httpContext);
 
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
@@ -192,12 +201,12 @@ public class MicroStrategy {
 			HttpEntityEnclosingRequestBase request = null;
 			if (datasetId != null) { // Upsert
 				request = new HttpPatch(baseUrl + "/datasets/" + datasetId + "/tables/" + tableName);
-				request.setHeaders(headers.toArray(new Header[headers.size()]));
+				request.setHeaders(this.headers.toArray(new Header[this.headers.size()]));
 				request.setHeader("updatePolicy", "Upsert");
 				payload = tableDefinition;
 			} else { // Create dataset
 				request = new HttpPost(baseUrl + "/datasets");
-				request.setHeaders(headers.toArray(new Header[headers.size()]));
+				request.setHeaders(this.headers.toArray(new Header[this.headers.size()]));
 				payload = new HashMap<String, Object>();
 				payload.put("name", datasetName);
 				payload.put("tables", Collections.singletonList(tableDefinition));

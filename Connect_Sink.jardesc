@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jardesc>
-    <jar path="/Users/hchadeisson/Dropbox/Real-Time/Kafka/mstr_rt/kafka_volume/PushAPIConnector.jar"/>
+    <jar path="/Users/hchadeisson/Dropbox/Real-Time/Kafka/mstr_rt/kafka_volume/MicroStrategyKafkaSink.jar"/>
     <options buildIfNeeded="true" compress="true" descriptionLocation="/MstrKafkaSink/Connect_Sink.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
@@ -14,9 +14,8 @@
         <file path="/MstrKafkaSink/Connect_Sink.jardesc"/>
         <javaElement handleIdentifier="=MstrKafkaSink/src"/>
         <folder path="/MstrKafkaSink/lib"/>
-        <file path="/MstrKafkaSink/.classpath"/>
         <file path="/MstrKafkaSink/.project"/>
         <folder path="/MstrKafkaSink/kafka"/>
-        <file path="/MstrKafkaSink/.DS_Store"/>
+        <file path="/MstrKafkaSink/.classpath"/>
     </selectedElements>
 </jardesc>
