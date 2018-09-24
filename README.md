@@ -32,6 +32,25 @@ You should be good to go, just restart Kafka Connect and let's configure the Sin
 ## Configure the Sink
 2 options are available to configure the Sink. You can either create it using a REST API Call on Kafka Connect, or if you are using [Confluent.io](http://confluent.io/), use the [Control Center](https://www.confluent.io/confluent-control-center/) to create it from a user friendly web portal.
 
+### Using Congluent.io Web console
+1. Go to Kafka Connect and click on the Sink tab
+![1_new_sink](https://github.com/hchadeisson/mstr-kafka-sink/blob/master/ReadMeScreenshots/1_new_sink.png)
+
+2. Select the Kafka Topic you need to push to MicroStrategy
+![2_select_topic](https://github.com/hchadeisson/mstr-kafka-sink/blob/master/ReadMeScreenshots/2_select_topic.png)
+
+3. Select the MicroStrategy Sink connector and give a name to this instance
+![3_select_sink](https://github.com/hchadeisson/mstr-kafka-sink/blob/master/ReadMeScreenshots/3_select_sink.png)
+
+4. Scroll all the way down to the MicroStrategy section of the Sink configuration and fill in the information collected in prerequisites
+![4_configure_sink](https://github.com/hchadeisson/mstr-kafka-sink/blob/master/ReadMeScreenshots/4_configure_sink.png)
+
+5. Hit Continue and review all the information summarized as a JSON payload
+![5_validate_sink](https://github.com/hchadeisson/mstr-kafka-sink/blob/master/ReadMeScreenshots/5_validate_sink.png)
+
+6. If all is Ok, click Save & Finish. You should get redirected to the global Kafka Connect page, that should display your newly created Sink
+![6_saved_sink](https://github.com/hchadeisson/mstr-kafka-sink/blob/master/ReadMeScreenshots/6_saved_sink.png)
+
 Currently, all cubes go the the Shared Reports of the project. Custom folders support will probably be considered in a near future
 
 ### Using REST API Call
