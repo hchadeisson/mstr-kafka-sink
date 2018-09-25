@@ -67,6 +67,10 @@ Update bold parameters
 * A new section appears, scroll all the way down to the MicroStrategy subsection
 * Fill all the fields with the required information listed in the prerequisites
 
+# FAQ
+_What data volume can be processed ?_
+> This has been successfully tested with a stream of few hundred events per second, resulting in about 500K rows in MicroStrategy streamed in less than an hour. It can scale beyond that but hasn't been extensively tested yet
+
 # Caveats & Roadmap
 This is a very first implementation of such connector. We took a lot of shortcuts to make it work. Feel free to enhance it and share code updates as you use it.
 
