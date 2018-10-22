@@ -29,6 +29,7 @@ public class MicroStrategySink extends SinkConnector {
 	static final String CONFIG_PROJECT = "CONFIG_PROJECT";
 	static final String CONFIG_CUBE = "CONFIG_CUBE";
 	static final String CONFIG_FOLDER = "CONFIG_FOLDER";
+	static final String CONFIG_UPDATEPOLICY = "CONFIG_UPDATEPOLICY";
 	private Map<String, String> props;
 
 	@Override
@@ -103,6 +104,17 @@ public class MicroStrategySink extends SinkConnector {
 				++groupOrder,
 				Width.MEDIUM,
 				"Target cube name");
+		config.define(
+				CONFIG_UPDATEPOLICY,
+				Type.STRING,
+				null,
+				new NonEmptyString(),
+				Importance.HIGH,
+				"Add / Update / Upsert / Replace",
+				"MicroStrategy",
+				++groupOrder,
+				Width.SHORT,
+				"Update Policy");
 		return config;
 	}
 

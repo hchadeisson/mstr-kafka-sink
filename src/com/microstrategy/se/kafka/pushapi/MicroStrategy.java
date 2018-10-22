@@ -54,6 +54,7 @@ public class MicroStrategy {
 	private Collection<Header> headers;
 	private ObjectMapper mapper;
 	private String projectId;
+	private Header authToken;
 	private String datasetName;
 	private String folderId;
 	private String tableName;
@@ -121,13 +122,31 @@ public class MicroStrategy {
 			request.setHeaders(this.headers.toArray(new Header[this.headers.size()]));
 			CloseableHttpResponse response = httpClient.execute(request, httpContext);
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_NO_CONTENT) {
-				this.headers.add(response.getFirstHeader("X-MSTR-AuthToken"));
+				this.authToken = response.getFirstHeader("X-MSTR-AuthToken");
+				this.headers.add(this.authToken);
 			} else {
 				throw new MicroStrategyException(response.getStatusLine().toString());
 			}
 		} catch (Exception e) {
 			throw new MicroStrategyException(e);
 		}			
+	}
+	
+	public void disconnect () throws MicroStrategyException {
+		Map<String, String> payload = new Hashtable<String, String>();
+		payload.put("X-MSTR-AuthToken", this.authToken.getValue());
+		try {
+			HttpPost request = new HttpPost(baseUrl + "/auth/logout");
+			request.setEntity(new StringEntity(mapper.writeValueAsString(payload)));
+			request.setHeaders(this.headers.toArray(new Header[this.headers.size()]));
+			CloseableHttpResponse response = httpClient.execute(request, httpContext);
+			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_NO_CONTENT) {
+			} else {
+				throw new MicroStrategyException(response.getStatusLine().toString());
+			}
+		} catch (Exception e) {
+			throw new MicroStrategyException(e);
+		}					
 	}
 	
 	public CookieStore getCookieStore() {
@@ -195,14 +214,15 @@ public class MicroStrategy {
 		}
 	}
 
-	public void push(Map<String, Object> tableDefinition) throws MicroStrategyException {
+	public void push(Map<String, Object> tableDefinition, String updatePolicy) throws MicroStrategyException {
 		try {
 			Map<String, Object> payload = null;
 			HttpEntityEnclosingRequestBase request = null;
 			if (datasetId != null) { // Upsert
 				request = new HttpPatch(baseUrl + "/datasets/" + datasetId + "/tables/" + tableName);
 				request.setHeaders(this.headers.toArray(new Header[this.headers.size()]));
-				request.setHeader("updatePolicy", "Upsert");
+				System.out.println("Update policy: " + updatePolicy);
+				request.setHeader("updatePolicy", updatePolicy);
 				payload = tableDefinition;
 			} else { // Create dataset
 				request = new HttpPost(baseUrl + "/datasets");

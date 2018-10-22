@@ -127,7 +127,8 @@ public class SinkImpl extends SinkTask {
 				mstr.connect();
 				mstr.setProject(props.get(MicroStrategySink.CONFIG_PROJECT));
 				mstr.setTarget(props.get(MicroStrategySink.CONFIG_CUBE), tableName, new String("D3C7D461F69C4610AA6BAA5EF51F4125"));
-				mstr.push(tableDefinition);
+				mstr.push(tableDefinition, props.get(MicroStrategySink.CONFIG_UPDATEPOLICY));
+				mstr.disconnect();
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
 				System.err.println(buffer.size() + " records failed to load.");
