@@ -56,7 +56,7 @@ Currently, all cubes go the the Shared Reports of the project. Custom folders su
 ### Using REST API Call
 Update bold parameters
 
-> curl -XPOST -H 'Accept: application/json' -H "Content-type: application/json" -d '{"name": "**MicroStrategySinkTest**","config": {"connector.class": "com.microstrategy.se.kafka.pushapi.MicroStrategySink", "topics": "**users**","CONFIG_LIBRARY_URL": "**yourserver-url/MicroStrategyLibrary**","CONFIG_USER": "**mstr**","CONFIG_PASSWORD": "**yourpassword**", "CONFIG_PROJECT": "**MicroStrategy Tutorial**","CONFIG_CUBE": "**MicroStrategy & Kafka**"}}' '**kafka-machine:8083/connectors**'
+> curl -XPOST -H 'Accept: application/json' -H "Content-type: application/json" -d '{"name": "**MicroStrategySinkTest**","config": {"connector.class": "com.microstrategy.se.kafka.pushapi.MicroStrategySink", "topics": "**users**","CONFIG_LIBRARY_URL": "**yourserver-url/MicroStrategyLibrary**","CONFIG_USER": "**mstr**","CONFIG_PASSWORD": "**yourpassword**", "CONFIG_PROJECT": "**MicroStrategy Tutorial**","CONFIG_CUBE": "**MicroStrategy & Kafka**","CONFIG_UPDATEPOLICY": "**Replace**"}}' '**kafka-machine:8083/connectors**'
 
 ### Using Confluent.io Control Center
 * Open Confluent Control Center
